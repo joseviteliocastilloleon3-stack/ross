@@ -637,7 +637,7 @@ function renderSabores(){
         <div class="sdesc">${s.desc}</div>
         <div class="sfoot">
           <div><div class="sprice">S/ ${s.p}</div><div class="sunits">6 unidades</div></div>
-          <button class="sbtn" onclick="addCart(${i})">+ Agregar</button>
+          <button class="sbtn" onclick="addCart(${i}, this)">+ Agregar</button>
         </div>
       </div>
     </div>`;
@@ -645,12 +645,13 @@ function renderSabores(){
   observeRev();
 }
 
-function addCart(i){
+function addCart(i, btn){
   const s = SABORES[i];
   const ex = cart.find(c=>c.n===s.n);
   if(ex) ex.qty++;
   else cart.push({n:s.n,p:s.p,qty:1});
   renderCart();
+  if(btn) flyToCart(btn);
   showToast('🍗 ' + s.n + ' agregado');
   if(!document.getElementById('cpanel').classList.contains('open')) toggleCart();
 }
